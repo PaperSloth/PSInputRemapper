@@ -5,7 +5,7 @@
 #include "GameFramework/InputSettings.h"
 #include "Kismet/GameplayStatics.h"
 
-void UPSInputFunctionLibrary::ChangeMapping(const UObject* WorldContextObject, const FName& BindName, const FKey& Key, const EBindType BindType, const int PlayerIndex)
+void UPSInputFunctionLibrary::ChangeMapping(const UObject* WorldContextObject, const FName& BindName, const FKey& Key, const EBindType BindType, const int32 PlayerIndex)
 {
 	switch (BindType)
 	{
@@ -18,9 +18,10 @@ void UPSInputFunctionLibrary::ChangeMapping(const UObject* WorldContextObject, c
 	}
 }
 
-void UPSInputFunctionLibrary::ChangeActionMapping(const UObject* WorldContextObject, const FName& ActionName, const FKey& Key, const int PlayerIndex)
+void UPSInputFunctionLibrary::ChangeActionMapping(const UObject* WorldContextObject, const FName& ActionName, const FKey& Key, const int32 PlayerIndex)
 {
 	const APlayerController* const PC = UGameplayStatics::GetPlayerController(WorldContextObject, PlayerIndex);
+	if (!PC || !PC->PlayerInput) return;
 	UPlayerInput* const PlayerInput = PC->PlayerInput;
 	PlayerInput->ActionMappings.RemoveAll([&ActionName](const FInputActionKeyMapping& NowMapping)
 	{
@@ -31,35 +32,38 @@ void UPSInputFunctionLibrary::ChangeActionMapping(const UObject* WorldContextObj
 	PlayerInput->AddActionMapping(AddMapping);
 }
 
-void UPSInputFunctionLibrary::ChangeAxisMapping(const UObject* WorldContextObject, const FName& AxisName, const FKey& Key, int PlayerIndex)
+void UPSInputFunctionLibrary::ChangeAxisMapping(const UObject* WorldContextObject, const FName& AxisName, const FKey& Key, const float Scale, int32 PlayerIndex)
 {
 	const APlayerController* const PC = UGameplayStatics::GetPlayerController(WorldContextObject, PlayerIndex);
+	if (!PC || !PC->PlayerInput) return;
 	UPlayerInput* const PlayerInput = PC->PlayerInput;
 	PlayerInput->AxisMappings.RemoveAll([&AxisName](const FInputAxisKeyMapping& NowMapping)
 	{
 		return (NowMapping.AxisName == AxisName);
 	});
 
-	const FInputAxisKeyMapping AddMapping(AxisName, Key);
+	const FInputAxisKeyMapping AddMapping(AxisName, Key, Scale);
 	PlayerInput->AddAxisMapping(AddMapping);
 }
 
-void UPSInputFunctionLibrary::GetAllActionMappingNames(TArray<FName>& MappingNames)
+void UPSInputFunctionLibrary::GetAllActionMappingNames(TArray<FName>& ActionNames)
 {
-	MappingNames.Empty();
-
 	const UInputSettings* Settings = GetDefault<UInputSettings>();
+	if (!Settings) return;
+
+	ActionNames.Empty();
 	for (const FInputActionKeyMapping& Action : Settings->GetActionMappings())
 	{
-		MappingNames.Emplace(Action.ActionName);
+		ActionNames.Emplace(Action.ActionName);
 	}
 }
 
 void UPSInputFunctionLibrary::GetAllAxisMappingNames(TArray<FName>& AxisNames)
 {
-	AxisNames.Empty();
-
 	const UInputSettings* Settings = GetDefault<UInputSettings>();
+	if (!Settings) return;
+
+	AxisNames.Empty();
 	for (const FInputAxisKeyMapping& Axis : Settings->GetAxisMappings())
 	{
 		AxisNames.Emplace(Axis.AxisName);

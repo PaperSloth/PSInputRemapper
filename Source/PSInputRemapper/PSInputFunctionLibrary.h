@@ -20,14 +20,14 @@ class PSINPUTREMAPPER_API UPSInputFunctionLibrary : public UBlueprintFunctionLib
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeMapping(const UObject* WorldContextObject, const FName& BindName, const FKey& Key, EBindType const BindType, const int PlayerIndex = 0);
+	static void ChangeMapping(const UObject* WorldContextObject, const FName& BindName, const FKey& Key, EBindType const BindType, const int32 PlayerIndex = 0);
 	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeActionMapping(const UObject* WorldContextObject, const FName& ActionName, const FKey& Key, const int PlayerIndex = 0);
+	static void ChangeActionMapping(const UObject* WorldContextObject, const FName& ActionName, const FKey& Key, const int32 PlayerIndex = 0);
 	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeAxisMapping(const UObject* WorldContextObject, const FName& AxisName, const FKey& Key, const int PlayerIndex = 0);
+	static void ChangeAxisMapping(const UObject* WorldContextObject, const FName& AxisName, const FKey& Key, const float Scale = 1.0f, const int32 PlayerIndex = 0);
 
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
-	static void GetAllActionMappingNames(TArray<FName>& MappingNames);
+	static void GetAllActionMappingNames(TArray<FName>& ActionNames);
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
 	static void GetAllAxisMappingNames(TArray<FName>& AxisNames);
 };
