@@ -7,9 +7,12 @@ UE4での入力のKeyConfig設定用のPlugin
 
 動作確認は4.24.3で行いました
 
-設定内容はProjectSettingsに反映され、Saved/Config/Windows/Input.ini に保存される
+設定内容はChangeActionMappingに成功した際に保存される
 
-ChangeActionMappingに成功した際に保存される
+ProjectSettingsに反映され、Saved/Config/Windows/Input.ini に保存される
+
+Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる
+
 
 
 ## TODO
