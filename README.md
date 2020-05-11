@@ -9,10 +9,13 @@ UE4での入力のKeyConfig設定用のPlugin
 
 
 ## TODO
-- 設定内容のiniへの書き込み
-- より直感的に編集できるようにWrapperを用意
 - サンプル用のLevelの用意
-
+- Axis対応
 
 ## Node一覧
-![node](https://user-images.githubusercontent.com/8968076/81523303-6bb3c400-9388-11ea-9bdb-a1c5cec0c9b3.png)
+![CurrentNode](https://user-images.githubusercontent.com/8968076/81571032-5cf6fc80-93dc-11ea-8979-8a7e82b272ad.png)
+
+## 使用例
+ThirdPersonTemplateのJumpキーのGamePadでのRemapping
+
+
