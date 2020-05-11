@@ -17,5 +17,4 @@ UE4での入力のKeyConfig設定用のPlugin
 
 ## 使用例
 ThirdPersonTemplateのJumpキーのGamePadでのRemapping
-
-
+![Remap](https://user-images.githubusercontent.com/8968076/81571247-a3e4f200-93dc-11ea-96e3-8bef57e54c3d.png)
