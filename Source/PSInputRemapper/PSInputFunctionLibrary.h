@@ -4,13 +4,35 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "InputCoreTypes.h"
 #include "PSInputFunctionLibrary.generated.h"
 
 UENUM(BlueprintType)
-enum class EBindType : uint8
+enum class EPSInputType : uint8
 {
-	Action,
-	Axis,
+	Keyboard,
+	Mouse,
+	Gamepad,
+	KeyboardOrMouse,
+};
+
+USTRUCT(BlueprintType)
+struct FPSInputWrapper
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PS|Input")
+	FString BindName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PS|Input")
+	FKey Key;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PS|Input")
+	FString KeyAsString;
+
+	FPSInputWrapper(){}
+	FPSInputWrapper(const FString& InBindName, const FKey& InKey)
+		: BindName(InBindName), Key(InKey), KeyAsString(InKey.GetDisplayName().ToString())
+	{
+	}
 };
 
 UCLASS()
@@ -19,15 +41,22 @@ class PSINPUTREMAPPER_API UPSInputFunctionLibrary : public UBlueprintFunctionLib
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeMapping(const UObject* WorldContextObject, const FName& BindName, const FKey& Key, EBindType const BindType, const int32 PlayerIndex = 0);
-	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeActionMapping(const UObject* WorldContextObject, const FName& ActionName, const FKey& Key, const int32 PlayerIndex = 0);
-	UFUNCTION(BlueprintCallable, Category = "PS|Input", meta = (WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIndex"))
-	static void ChangeAxisMapping(const UObject* WorldContextObject, const FName& AxisName, const FKey& Key, const float Scale = 1.0f, const int32 PlayerIndex = 0);
+	/**
+	 * If the update is successful, it will be saved in Saved/Config/Windows/Input.ini.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "PS|Input")
+	static bool ChangeActionMapping(const FString& ActionName, const FKey& CurrentInputKey, const FKey NewInputKey, const EPSInputType InputType);
+	UFUNCTION(BlueprintPure, Category = "PS|Input")
+	static void GetAllActionMappingName(TArray<FPSInputWrapper>& InputArray);
+	UFUNCTION(BlueprintCallable, Category = "PS|Input")
+	static void FindCurrentActionMappings(const FString& ActionName, TArray<FPSInputWrapper>& InputArray);
 
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
-	static void GetAllActionMappingNames(TArray<FName>& ActionNames);
+		static bool ChangeAxisMapping(const FString& AxisName, const FKey& NewInputKey, const float Scale = 1.0f);
+	UFUNCTION(BlueprintPure, Category = "PS|Input")
+		static void GetAllAxisMappingName(TArray<FString>& AxisNames);
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
-	static void GetAllAxisMappingNames(TArray<FName>& AxisNames);
+		static void FindCurrentAxisMappings(const FString& AxisName, TArray<FKey>& KeyArray);
+#endif
 };
