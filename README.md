@@ -8,16 +8,32 @@ UE4での入力のKeyConfig設定用のPlugin<br>
 ProjectSettingsに反映され、Saved/Config/Windows/Input.ini に保存される<br>
 Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる<br>
 <br>
+動作環境はWindowsPCです
+MacOSで動くかは手元で動作環境がないため未確認です
+
+
 ## TODO
 - サンプル用のLevelの用意
 - Axis対応
-<br>
+
+
 ## Node List
 ![Allnode](https://user-images.githubusercontent.com/8968076/81718758-1924f580-94b7-11ea-9530-c601396206f1.png)
-<br>
+
+
 ## Example
 ThirdPersonTemplateのJumpキーのGamePadでのRemapping<br>
 例では固定でJumpの割り当て変更を行っているため、FPS Templateでも動作します<br>
 InputTypeによって書き換え先のキーを変えているため、Gamepadにしている場合にはキーボードが押されても変更されない仕様です<br>
 同様にInputTypeがKeyboardの場合にはGamepad側のキーに影響がありません<br>
 ![Example](https://user-images.githubusercontent.com/8968076/81718639-f266bf00-94b6-11ea-9c09-241454479c5d.png)
+
+
+## できないこと
+- Keyboard/Gamepadで複数のキーを登録できない
+  例えば前進を「W」と「↑」に割り当てる等
+- デフォルトに戻す
+  設定変更前情報を保存していないため、書き換えた後にデフォルト設定に戻す機能がない
+  事前にゲーム側で情報を保持しておき、戻すなどゲーム側での実装が必要
+- Ctrl/Alt/Shift + Keyの設定
+  現段階では用意していません。単一のキーでの動作のみとなります。
