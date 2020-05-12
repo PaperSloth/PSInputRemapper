@@ -24,4 +24,5 @@ Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる
 
 ## Example
 ThirdPersonTemplateのJumpキーのGamePadでのRemapping
-![Remap](https://user-images.githubusercontent.com/8968076/81571247-a3e4f200-93dc-11ea-96e3-8bef57e54c3d.png)
+例では固定でJumpの割り当て変更を行っているため、FPS Templateでも動作します
+![Example](https://user-images.githubusercontent.com/8968076/81718639-f266bf00-94b6-11ea-9c09-241454479c5d.png)
