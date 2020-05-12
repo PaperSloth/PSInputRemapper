@@ -6,7 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetInputLibrary.h"
 
-bool UPSInputFunctionLibrary::ChangeActionMapping(const FString& ActionName, const FKey& CurrentInputKey, const FKey NewInputKey, const EPSInputType InputType)
+bool UPSInputFunctionLibrary::UpdateActionMapping(const FString& ActionName, const FKey& CurrentInputKey, const FKey NewInputKey, const EPSInputType InputType)
 {
 	const UInputSettings* Settings = GetDefault<UInputSettings>();
 	if (!Settings) return false;
@@ -50,6 +50,25 @@ bool UPSInputFunctionLibrary::ChangeActionMapping(const FString& ActionName, con
 	return isUpdate;
 }
 
+bool UPSInputFunctionLibrary::UpdateActionMapping(const FString& ActionName, const FKey NewInputKey, const EPSInputType InputType)
+{
+	TArray<FPSInputWrapper> inputArray;
+	FindCurrentActionMappings(ActionName, inputArray);
+
+	if (inputArray.Num() <= 0)
+	{
+		return false;
+	}
+	for (const auto Input : inputArray)
+	{
+		if (UpdateActionMapping(Input.BindName, Input.Key, NewInputKey, InputType))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void UPSInputFunctionLibrary::GetAllActionMappingName(TArray<FPSInputWrapper>& InputArray)
 {
 	const UInputSettings* Settings = GetDefault<UInputSettings>();
@@ -70,10 +89,45 @@ void UPSInputFunctionLibrary::FindCurrentActionMappings(const FString& ActionNam
 	InputArray.Empty();
 	for (const auto& Action : Settings->GetActionMappings())
 	{
-		const FString& ActionName = Action.ActionName.ToString();
-		if (ActionName == ActionName)
+		if (ActionName == Action.ActionName.ToString())
 		{
-			InputArray.Emplace(FPSInputWrapper(ActionName, Action.Key));
+			InputArray.Emplace(FPSInputWrapper(Action));
+		}
+	}
+}
+
+void UPSInputFunctionLibrary::FindCurrentActionMapping(const FString& ActionName, FPSInputWrapper& Input, const EPSInputType InputType)
+{
+	const UInputSettings* Settings = GetDefault<UInputSettings>();
+	if (!Settings) return;
+
+	bool found = false;
+	for (const auto& Action : Settings->GetActionMappings())
+	{
+		if (ActionName != Action.ActionName.ToString())
+		{
+			continue;
+		}
+
+		switch (InputType)
+		{
+		case EPSInputType::Keyboard:
+			found = (UKismetInputLibrary::Key_IsKeyboardKey(Action.Key));
+			break;
+		case EPSInputType::Mouse:
+			found = (Action.Key.IsMouseButton());
+			break;
+		case EPSInputType::KeyboardOrMouse:
+			found = ((UKismetInputLibrary::Key_IsKeyboardKey(Action.Key)) || Action.Key.IsMouseButton());
+			break;
+		case EPSInputType::Gamepad:
+			found = (Action.Key.IsGamepadKey());
+			break;
+		}
+		if (found)
+		{
+			Input = FPSInputWrapper(Action);
+			return;
 		}
 	}
 }

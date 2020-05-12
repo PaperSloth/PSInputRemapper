@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "InputCoreTypes.h"
+#include "GameFramework/PlayerInput.h"
 #include "PSInputFunctionLibrary.generated.h"
 
 UENUM(BlueprintType)
@@ -29,6 +30,10 @@ struct FPSInputWrapper
 	FString KeyAsString;
 
 	FPSInputWrapper(){}
+	FPSInputWrapper(const FInputActionKeyMapping& Action)
+		: BindName(Action.ActionName.ToString()), Key(Action.Key), KeyAsString(Action.Key.GetDisplayName().ToString())
+	{
+	}
 	FPSInputWrapper(const FString& InBindName, const FKey& InKey)
 		: BindName(InBindName), Key(InKey), KeyAsString(InKey.GetDisplayName().ToString())
 	{
@@ -40,16 +45,21 @@ class PSINPUTREMAPPER_API UPSInputFunctionLibrary : public UBlueprintFunctionLib
 {
 	GENERATED_BODY()
 
+private:
+	static bool UpdateActionMapping(const FString& ActionName, const FKey& CurrentInputKey, const FKey NewInputKey, const EPSInputType InputType);
+
 public:
 	/**
 	 * If the update is successful, it will be saved in Saved/Config/Windows/Input.ini.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
-	static bool ChangeActionMapping(const FString& ActionName, const FKey& CurrentInputKey, const FKey NewInputKey, const EPSInputType InputType);
+	static bool UpdateActionMapping(const FString& ActionName, const FKey NewInputKey, const EPSInputType InputType);
 	UFUNCTION(BlueprintPure, Category = "PS|Input")
 	static void GetAllActionMappingName(TArray<FPSInputWrapper>& InputArray);
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
 	static void FindCurrentActionMappings(const FString& ActionName, TArray<FPSInputWrapper>& InputArray);
+	UFUNCTION(BlueprintCallable, Category = "PS|Input")
+	static void FindCurrentActionMapping(const FString& ActionName, FPSInputWrapper& Input, const EPSInputType InputType);
 
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "PS|Input")
