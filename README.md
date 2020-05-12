@@ -19,9 +19,9 @@ Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる
 - サンプル用のLevelの用意
 - Axis対応
 
-## Node一覧
+## Node
 ![CurrentNode](https://user-images.githubusercontent.com/8968076/81571032-5cf6fc80-93dc-11ea-8979-8a7e82b272ad.png)
 
-## 使用例
+## Example
 ThirdPersonTemplateのJumpキーのGamePadでのRemapping
 ![Remap](https://user-images.githubusercontent.com/8968076/81571247-a3e4f200-93dc-11ea-96e3-8bef57e54c3d.png)
