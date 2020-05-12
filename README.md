@@ -8,7 +8,8 @@ UE4での入力のKeyConfig設定用のPlugin<br>
 ProjectSettingsに反映され、Saved/Config/Windows/Input.ini に保存される<br>
 Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる<br>
 <br>
-動作環境はWindowsPCです
+動作環境はWindows + PC環境のみです
+スマホ/VR系の入力には対応していません(VRのコントローラーとGamepadの両方を設定すると上書きされます)
 MacOSで動くかは手元で動作環境がないため未確認です
 
 
