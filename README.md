@@ -26,7 +26,7 @@ ThirdPersonTemplateのJumpキーのGamePadでのRemapping<br>
 例では固定でJumpの割り当て変更を行っているため、FPS Templateでも動作します<br>
 InputTypeによって書き換え先のキーを変えているため、Gamepadにしている場合にはキーボードが押されても変更されない仕様です<br>
 同様にInputTypeがKeyboardの場合にはGamepad側のキーに影響がありません<br>
-![Example](https://user-images.githubusercontent.com/8968076/81718639-f266bf00-94b6-11ea-9c09-241454479c5d.png)
+![Jump](https://user-images.githubusercontent.com/8968076/81720062-d95f0d80-94b8-11ea-930e-d134b7b7712a.png)
 
 
 ## できないこと
