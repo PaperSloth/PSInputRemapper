@@ -19,7 +19,7 @@ Package作成後はSaved/Config/WindowsNoEditor/Input.ini に書き込まれる
 - サンプル用のLevelの用意
 - Axis対応
 
-## Node
+## Node List
 ![CurrentNode](https://user-images.githubusercontent.com/8968076/81571032-5cf6fc80-93dc-11ea-8979-8a7e82b272ad.png)
 
 ## Example
