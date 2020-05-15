@@ -28,7 +28,7 @@ bool UPSGamepadFunctionLibrary::DisableGamepadCursor(const UObject* WorldContext
 
 	if (FSlateApplication::IsInitialized())
 	{
-		FSlateApplication::Get().UnregisterInputPreProcessor(GetMutableDefault<UGamePadCursor>()->AnalogCursor.Pin());
+		FSlateApplication::Get().UnregisterInputPreProcessor(GetMutableDefault<UGamePadCursor>()->AnalogCursor);
 	}
 
 	FInputModeGameOnly InputMode;

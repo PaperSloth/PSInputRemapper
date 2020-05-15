@@ -12,7 +12,7 @@ class UGamePadCursor : public UObject
 	GENERATED_BODY()
 
 public:
-	TWeakPtr<class FAnalogCursor> AnalogCursor;
+	TSharedPtr<class FAnalogCursor> AnalogCursor;
 };
 
 UCLASS()
