@@ -6,4 +6,6 @@ Content/Collections/
 Content/Developers/
 /*.swp
 /*.pdb
+/.vs
+*.sln
 
