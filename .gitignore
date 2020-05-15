@@ -1,4 +1,9 @@
 Intermediate/
+Binaries/
+Build/
+Saved/
+Content/Collections/
+Content/Developers/
 /*.swp
 /*.pdb
 
