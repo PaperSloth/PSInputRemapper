@@ -39,6 +39,8 @@ MacOSで動くかは手元で動作環境がないため未確認です
 
 
 ## Example
+Defaultでは”Enter”もしくは”XBox GamePadのStart”でConfig画面が開けます<br>
+
 FirstPersonTemplateのJump/Fire/Pause(独自に追加)のKeyboard/GamePadでのRemapping<br>
 InputTypeによって書き換え先のキーを変えているため、Gamepadにしている場合にはキーボードが押されても変更されない仕様です<br>
 同様にInputTypeがKeyboardの場合にはGamepad側のキーに影響がありません<br>
