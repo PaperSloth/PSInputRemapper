@@ -2,6 +2,7 @@
 
 #include "PSGamepadFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "Framework/Application/SlateApplication.h"
 #include "Framework/Application/AnalogCursor.h"
 
 bool UPSGamepadFunctionLibrary::EnableGamepadCursor(const UObject* WorldContextObject)
